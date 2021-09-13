@@ -500,15 +500,11 @@ describe('ComEth', function () {
     it('should return investmentBalance of bob', async function () {
       const cycleStart = await comEth.getCycle();
       console.log('initial cycle', cycleStart.toString());
-      
-      
       await comEth.connect(bob).addUser();
       await comEth.connect(bob).pay({ value: ethers.utils.parseEther('0.1') });
-      
       await ethers.provider.send('evm_increaseTime', [2600000]);
       await ethers.provider.send('evm_mine');
-      
-      
+
       await comEth.connect(bob).pay({ value: ethers.utils.parseEther('0.4') });
       const cycle = await comEth.getCycle();
       const subscription = await comEth.getUser(bob.address);
@@ -523,17 +519,10 @@ describe('ComEth', function () {
         'bob balance',
         balance.toString()
       );
-      
-      
-   
+
       await ethers.provider.send('evm_increaseTime', [2600000]);
       await ethers.provider.send('evm_mine');
-   
 
-
-      //await comEth.connect(bob).pay({ value: ethers.utils.parseEther('0.2') });
-
-    
       expect(await comEth.getInvestmentBalance(bob.address)).to.equal(ethers.utils.parseEther('0.3'));
     });
     it('should return the balance of the contract', async function () {
