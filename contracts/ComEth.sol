@@ -261,9 +261,6 @@ contract ComEth {
             uint256 amount = getWithdrawalAmount();
             _withdraw(amount);
             _investmentBalances[address(this)] -= _investmentBalances[msg.sender];
-            _investmentBalances[msg.sender] = 0;
-            payable(msg.sender).transfer(amount);
-            emit Withdrawn(msg.sender, amount);
         }
         _investmentBalances[msg.sender] = 0;
         _users[msg.sender].exists = false;
